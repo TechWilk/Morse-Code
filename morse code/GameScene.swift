@@ -65,12 +65,22 @@ class GameScene: SKScene {
         
         let toneFilePath = Bundle.main.path(forResource: "1kHz_tone", ofType: "wav")
         let toneFileUrl = NSURL(fileURLWithPath: toneFilePath!)
-        _ = try? tonePlayer = AVAudioPlayer(contentsOf: toneFilePath as URL)
+        _ = try? tonePlayer = AVAudioPlayer(contentsOf: toneFileUrl as URL)
         tonePlayer.numberOfLoops = -1 // loop indefinitley
         tonePlayer.prepareToPlay()
     }
     
+    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        tonePlayer.play()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        tonePlayer.stop()
     }
 }
