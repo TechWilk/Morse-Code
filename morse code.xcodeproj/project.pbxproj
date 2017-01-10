@@ -16,6 +16,7 @@
 		CEB0F7891E23BDBD00EAECBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F7881E23BDBD00EAECBD /* Assets.xcassets */; };
 		CEB0F78C1E23BDBD00EAECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F78A1E23BDBD00EAECBD /* LaunchScreen.storyboard */; };
 		CEB0F7971E23BDBD00EAECBD /* morse_codeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F7961E23BDBD00EAECBD /* morse_codeTests.swift */; };
+		CEB0F7A21E24D80E00EAECBD /* 1kHz_tone.wav in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F7A11E24D80E00EAECBD /* 1kHz_tone.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		CEB0F7921E23BDBD00EAECBD /* morse codeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "morse codeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB0F7961E23BDBD00EAECBD /* morse_codeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = morse_codeTests.swift; sourceTree = "<group>"; };
 		CEB0F7981E23BDBD00EAECBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEB0F7A11E24D80E00EAECBD /* 1kHz_tone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1kHz_tone.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		CEB0F77A1E23BDBD00EAECBD /* morse code */ = {
 			isa = PBXGroup;
 			children = (
+				CEB0F7A11E24D80E00EAECBD /* 1kHz_tone.wav */,
 				CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */,
 				CEB0F77D1E23BDBD00EAECBD /* GameScene.sks */,
 				CEB0F77F1E23BDBD00EAECBD /* Actions.sks */,
@@ -194,6 +197,7 @@
 				CEB0F77E1E23BDBD00EAECBD /* GameScene.sks in Resources */,
 				CEB0F7891E23BDBD00EAECBD /* Assets.xcassets in Resources */,
 				CEB0F78C1E23BDBD00EAECBD /* LaunchScreen.storyboard in Resources */,
+				CEB0F7A21E24D80E00EAECBD /* 1kHz_tone.wav in Resources */,
 				CEB0F7801E23BDBD00EAECBD /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,6 +430,7 @@
 				CEB0F79D1E23BDBD00EAECBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEB0F79E1E23BDBD00EAECBD /* Build configuration list for PBXNativeTarget "morse codeTests" */ = {
 			isa = XCConfigurationList;
@@ -434,6 +439,7 @@
 				CEB0F7A01E23BDBD00EAECBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
