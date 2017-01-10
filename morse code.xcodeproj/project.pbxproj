@@ -17,6 +17,7 @@
 		CEB0F78C1E23BDBD00EAECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F78A1E23BDBD00EAECBD /* LaunchScreen.storyboard */; };
 		CEB0F7971E23BDBD00EAECBD /* morse_codeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F7961E23BDBD00EAECBD /* morse_codeTests.swift */; };
 		CEB0F7A21E24D80E00EAECBD /* 1kHz_tone.wav in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F7A11E24D80E00EAECBD /* 1kHz_tone.wav */; };
+		CEB0F7A51E24E27800EAECBD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB0F7A41E24E27800EAECBD /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		CEB0F7961E23BDBD00EAECBD /* morse_codeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = morse_codeTests.swift; sourceTree = "<group>"; };
 		CEB0F7981E23BDBD00EAECBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB0F7A11E24D80E00EAECBD /* 1kHz_tone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1kHz_tone.wav; sourceTree = "<group>"; };
+		CEB0F7A41E24E27800EAECBD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB0F7A51E24E27800EAECBD /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +73,7 @@
 				CEB0F77A1E23BDBD00EAECBD /* morse code */,
 				CEB0F7951E23BDBD00EAECBD /* morse codeTests */,
 				CEB0F7791E23BDBD00EAECBD /* Products */,
+				CEB0F7A31E24E27800EAECBD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +110,14 @@
 				CEB0F7981E23BDBD00EAECBD /* Info.plist */,
 			);
 			path = "morse codeTests";
+			sourceTree = "<group>";
+		};
+		CEB0F7A31E24E27800EAECBD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEB0F7A41E24E27800EAECBD /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

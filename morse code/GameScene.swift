@@ -8,16 +8,19 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameScene: SKScene {
+    
+    private var tonePlayer = AVAudioPlayer()
+    
     
     let dit = CGRect(x: 100.0, y: 100.0, width: 100.0, height: 10.0)
     let dah = CGRect(x: 100.0, y: 100.0, width: 10.0, height: 10.0)
     
     var chars = [String: Array<Any>]()
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    
     
     override func didMove(to view: SKView) {
         chars = [
@@ -60,6 +63,11 @@ class GameScene: SKScene {
             "0": [dah, dah, dah, dah, dah],
         ]
         
+        let toneFilePath = Bundle.main.path(forResource: "1kHz_tone", ofType: "wav")
+        let toneFileUrl = NSURL(fileURLWithPath: toneFilePath!)
+        _ = try? tonePlayer = AVAudioPlayer(contentsOf: toneFilePath as URL)
+        tonePlayer.numberOfLoops = -1 // loop indefinitley
+        tonePlayer.prepareToPlay()
     }
     
     override func update(_ currentTime: TimeInterval) {
