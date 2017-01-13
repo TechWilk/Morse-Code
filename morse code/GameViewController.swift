@@ -11,6 +11,8 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController, GameSceneDelegate {
+    
+    var text = "morse code"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,7 @@ class GameViewController: UIViewController, GameSceneDelegate {
             if let scene = GameScene(fileNamed: "GameScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .resizeFill
+                scene.sentance = text
                 scene.gameSceneDelegate = self
                 
                 // Present the scene
