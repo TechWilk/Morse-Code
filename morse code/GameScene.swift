@@ -11,8 +11,14 @@ import GameplayKit
 import AVFoundation
 
 
+protocol GameSceneDelegate {
+    func sentanceComplete(completed: Bool)
+}
+
 
 class GameScene: SKScene {
+    
+    var gameSceneDelegate: GameSceneDelegate?
     
     var tonePlayer = AVAudioPlayer()
     
@@ -255,6 +261,7 @@ class GameScene: SKScene {
             self.spawnDah()
         }
         let actionEndOfSentance = SKAction.run {
+            self.gameSceneDelegate!.sentanceComplete(completed: true)
             self.timeLabel.text = "Done"
         }
         let waitOneMorseUnit = SKAction.wait(forDuration: 1/morseUnitPerSecond)
