@@ -12,10 +12,10 @@ import AVFoundation
 
 class GameScene: SKScene {
     
-    private var tonePlayer = AVAudioPlayer()
+    var tonePlayer = AVAudioPlayer()
     
-    public var unit = 1.0 // length of a dit / space
-    //public var gapUnit = unit
+    var morseUnitPerSecond = (10.0*41)/60 // length of a dit / space per second
+    let unitDisplaySize = 50
     
     
     let dit = CGRect(x: 100.0, y: 100.0, width: 100.0, height: 10.0)
@@ -27,8 +27,118 @@ class GameScene: SKScene {
     var wordsPerMinLabel = SKLabelNode()
     var timeLabel = SKLabelNode()
     
+    var sentance = "morse code"
+    
+    var touchDown = false
+    var tapStartTime:NSDate!
+    
     
     override func didMove(to view: SKView) {
+        setupCharactersArray()
+        
+        let toneFilePath = Bundle.main.path(forResource: "1kHz_tone", ofType: "wav")
+        let toneFileUrl = NSURL(fileURLWithPath: toneFilePath!)
+        _ = try? tonePlayer = AVAudioPlayer(contentsOf: toneFileUrl as URL)
+        tonePlayer.numberOfLoops = -1 // loop indefinitley
+        tonePlayer.prepareToPlay()
+        
+        run(SKAction.sequence([SKAction.run({
+                self.tonePlayer.play()
+            }),
+            SKAction.wait(forDuration: 1/morseUnitPerSecond),
+            SKAction.run({
+                self.tonePlayer.stop()
+                self.tonePlayer.prepareToPlay()
+            })]))
+        tonePlayer.play()
+        
+        
+        self.backgroundColor = SKColor(red: 60/255, green: 173/255, blue: 237/255, alpha: 1)
+        
+        setupButtons()
+        setupLabels()
+        setupTimeline()
+        
+        spawnSentance()
+    }
+    
+    
+    override func update(_ currentTime: TimeInterval) {
+        // Called before each frame is rendered
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !touchDown {
+            for touch in touches {
+                if tapButton.frame.contains(touch.location(in: self)) {
+                    tapButtonPressed()
+                    return
+                }
+            }
+        }
+    }
+    
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touchDown {
+            if touches.count == 1 {
+                tapButtonReleased()
+                return
+            }
+            else {
+                for touch in touches {
+                    if tapButton.frame.contains(touch.location(in: self)) {
+                        tapButtonReleased()
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    /* ~~~~~~~~~~~ SETUP ~~~~~~~~~~ */
+    
+    func setupButtons() {
+        tapButton.size = CGSize(width: 150, height: 150)
+        tapButton.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY - (frame.midY - frame.minY) / 2/3)
+        tapButton.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        tapButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        addChild(tapButton)
+        
+        let tapButtonInner = SKSpriteNode(color: UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1), size: tapButton.frame.insetBy(dx: 10, dy: 10).size)
+        tapButtonInner.position = CGPoint(x: 0, y: 0 )
+        tapButtonInner.name = "tapButtonInner"
+        tapButtonInner.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        tapButton.addChild(tapButtonInner)
+    }
+    
+    func setupLabels() {
+        let edgePadding = CGFloat(20)
+        let wordsPerMin = Int((morseUnitPerSecond * 60) / 41)
+        wordsPerMinLabel.text = "\(wordsPerMin) wpm"
+        wordsPerMinLabel.position = CGPoint(x: frame.maxX - edgePadding, y: frame.minY + edgePadding)
+        wordsPerMinLabel.horizontalAlignmentMode = .right
+        addChild(wordsPerMinLabel)
+        
+        timeLabel.text = "time"
+        timeLabel.position = CGPoint(x: frame.maxX - edgePadding, y: (frame.minY + 10 + wordsPerMinLabel.fontSize + edgePadding) )
+        timeLabel.horizontalAlignmentMode = .right
+        addChild(timeLabel)
+        
+    }
+    
+    func setupTimeline() {
+        let marker = SKSpriteNode()
+        marker.size = CGSize(width: 2, height: unitDisplaySize*2)
+        marker.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY + (frame.maxY - frame.midY) / 2)
+        marker.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        marker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        addChild(marker)
+    }
+    
+    func setupCharactersArray() {
         chars = [
             "a": [dit, dah],
             "b": [dah, dit, dit, dit],
@@ -68,83 +178,137 @@ class GameScene: SKScene {
             "9": [dah, dah, dah, dah, dit],
             "0": [dah, dah, dah, dah, dah],
         ]
-        
-        let toneFilePath = Bundle.main.path(forResource: "1kHz_tone", ofType: "wav")
-        let toneFileUrl = NSURL(fileURLWithPath: toneFilePath!)
-        _ = try? tonePlayer = AVAudioPlayer(contentsOf: toneFileUrl as URL)
-        tonePlayer.numberOfLoops = -1 // loop indefinitley
-        tonePlayer.prepareToPlay()
-        
-        self.backgroundColor = SKColor(red: 60/255, green: 173/255, blue: 237/255, alpha: 1)
-        
-        setupButtons()
-        setupLabels()
     }
     
+    /* ~~~~~~~~~~~ TAP BUTTON ~~~~~~~~~~ */
     
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+    func tapButtonPressed() {
+        tonePlayer.play()
+        tapStartTime = NSDate()
+        touchDown = true
+        (tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 160/255, green: 225/255, blue: 255/255, alpha: 1)
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func tapButtonReleased() {
+        let tapDuration = -tapStartTime.timeIntervalSinceNow
+        tapButton.run(SKAction.sequence([SKAction.wait(forDuration: 0.05), SKAction.run {
+            self.tonePlayer.stop()
+            self.tonePlayer.prepareToPlay()
+            (self.tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1)
+            }]))
         
-        for touch in touches {
-            if tapButton.frame.contains(touch.location(in: self)) {
-                tonePlayer.play()
-                // todo: start tapTimer
-                (tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 160/255, green: 225/255, blue: 255/255, alpha: 1)
-                
-            }
+        if tapDuration <= (1/morseUnitPerSecond)*1.2 {
+            timeLabel.text = "Dit"
         }
-    }
-    
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        for touch in touches {
-            if tapButton.frame.contains(touch.location(in: self)) {
-                // todo: end tapTimer
-                // todo: calculate if dit or dah was entered
-                run(SKAction.sequence([SKAction.wait(forDuration: 0.005), SKAction.run {
-                    self.tonePlayer.stop()
-                    self.tonePlayer.prepareToPlay()
-                    (self.tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1)
-                    }]))
-            }
+        else if tapDuration <= (1/morseUnitPerSecond*3)*1.2 {
+            timeLabel.text = "Dah"
         }
+        else {
+            timeLabel.text = "N/A"
+        }
+        touchDown = false
     }
     
     
-    /* ~~~~~~~~~~~ SETUP ~~~~~~~~~~ */
+    /* ~~~~~~~~~~~ TIMELINE ~~~~~~~~~~ */
     
-    func setupButtons() {
-        tapButton.size = CGSize(width: 100, height: 100)
-        tapButton.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY)
-        tapButton.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
-        tapButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addChild(tapButton)
+    
+    func spawnSentance() {
+        let sentance = "hello"
         
-        let tapButtonInner = SKSpriteNode(color: UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1), size: tapButton.frame.insetBy(dx: 10, dy: 10).size)
-        tapButtonInner.position = CGPoint(x: 0, y: 0 )
-        tapButtonInner.name = "tapButtonInner"
-        tapButtonInner.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        tapButton.addChild(tapButtonInner)
+        var actions: [SKAction] = []
+        let actionSpawnDit = SKAction.run {
+            self.spawnDit()
+        }
+        let actionSpawnDah = SKAction.run {
+            self.spawnDah()
+        }
+        let actionEndOfSentance = SKAction.run {
+            self.timeLabel.text = "Done"
+        }
+        let waitOneUnit = SKAction.wait(forDuration: 1/morseUnitPerSecond)
+        
+        
+        for letter in sentance.characters {
+            if (chars[String(letter)] != nil) {
+                if true { // easy level selected
+                    actions.append(SKAction.run {
+                        self.spawnCharacter(char: letter)
+                    })
+                }
+                for i in chars[String(letter)]! {
+                    if i as! CGRect == dit {
+                        actions.append(contentsOf: [actionSpawnDit, waitOneUnit]) // append wait same length as shape to prevent drawing over it
+                    }
+                    else if i as! CGRect == dah {
+                        actions.append(contentsOf: [actionSpawnDah, waitOneUnit, waitOneUnit, waitOneUnit]) // append wait same length as shape to prevent drawing over it
+                    }
+                    else {
+                        // wait
+                    }
+                    actions.append(waitOneUnit)
+                }
+            }
+            actions.append(waitOneUnit)
+            actions.append(waitOneUnit)
+        }
+        let distanceInUnits = (frame.maxX - frame.minX + CGFloat(unitDisplaySize*3)) / CGFloat(unitDisplaySize)
+        let dahAnimationDuration = CGFloat(1/morseUnitPerSecond) * distanceInUnits
+        actions.append(SKAction.wait(forDuration: TimeInterval (dahAnimationDuration)))
+        actions.append(SKAction.wait(forDuration: 1))
+        actions.append(actionEndOfSentance)
+        
+        run(SKAction.sequence(actions))
     }
     
-    func setupLabels() {
-        let wordsPerMin = Int((unit * 18) / 60)
-        wordsPerMinLabel.text = "\(wordsPerMin) wpm"
-        wordsPerMinLabel.position = CGPoint(x: frame.maxX - 10, y: frame.minY + 10)
-        wordsPerMinLabel.horizontalAlignmentMode = .right
-        wordsPerMinLabel.verticalAlignmentMode = .bottom
-        addChild(wordsPerMinLabel)
+    
+    func spawnDit() {
+        // test
+        let circle = SKSpriteNode()
+        circle.size = CGSize(width: unitDisplaySize, height: unitDisplaySize)
+        circle.position = CGPoint(x: (frame.maxX + circle.size.width/2), y: frame.midY + (frame.maxY - frame.midY) / 2)
+        circle.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        circle.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        addChild(circle)
         
-        timeLabel.text = "time"
-        timeLabel.position = CGPoint(x: frame.maxX - 10, y: (frame.minY + 10 + wordsPerMinLabel.fontSize + 10) )
-        timeLabel.horizontalAlignmentMode = .right
-        timeLabel.verticalAlignmentMode = .bottom
-        addChild(timeLabel)
+        setupTimelineAnimation(shape: circle)
+    }
+    
+    func spawnDah() {
+        // test
+        let circle = SKSpriteNode()
+        circle.size = CGSize(width: unitDisplaySize*3 , height: unitDisplaySize)
+        circle.position = CGPoint(x: (frame.maxX + circle.size.width/2), y: frame.midY + (frame.maxY - frame.midY) / 2)
+        circle.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        circle.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        addChild(circle)
         
+        setupTimelineAnimation(shape: circle )
+    }
+    
+    func spawnCharacter(char: Character) {
+        let letterLabel = SKLabelNode()
+        letterLabel.text = String(char).uppercased()
+        letterLabel.position = CGPoint(x: (frame.maxX + letterLabel.frame.width/2), y: frame.midY + (frame.maxY - frame.midY) / 2 + CGFloat(unitDisplaySize/2) + 15 + letterLabel.frame.height/2)
+        letterLabel.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        letterLabel.horizontalAlignmentMode = .left
+        addChild(letterLabel)
+        
+        setupTimelineAnimation(label: letterLabel )
+    }
+    
+    func setupTimelineAnimation(shape: SKSpriteNode) {
+        let move = SKAction.moveTo(x: frame.minX-shape.size.width/2, duration: TimeInterval(timelineAnimationDuration(width: shape.size.width)))
+        shape.run(SKAction.sequence([move, SKAction.removeFromParent()]))
+    }
+    
+    func setupTimelineAnimation(label: SKLabelNode) {
+        let move = SKAction.moveTo(x: frame.minX-label.frame.width/2, duration: TimeInterval(timelineAnimationDuration(width: label.frame.width)))
+        label.run(SKAction.sequence([move, SKAction.removeFromParent()]))
+    }
+    
+    func timelineAnimationDuration(width: CGFloat) -> CGFloat {
+        let distanceInUnits = (frame.maxX - frame.minX + width) / CGFloat(unitDisplaySize)
+        return CGFloat(1/morseUnitPerSecond) * distanceInUnits
     }
 }
