@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		CE3660821E29717D006E3F72 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3660811E29717D006E3F72 /* IntroViewController.swift */; };
 		CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */; };
-		CEB0F77E1E23BDBD00EAECBD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77D1E23BDBD00EAECBD /* GameScene.sks */; };
+		CEB0F77E1E23BDBD00EAECBD /* TimelineScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */; };
 		CEB0F7801E23BDBD00EAECBD /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77F1E23BDBD00EAECBD /* Actions.sks */; };
-		CEB0F7821E23BDBD00EAECBD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F7811E23BDBD00EAECBD /* GameScene.swift */; };
-		CEB0F7841E23BDBD00EAECBD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F7831E23BDBD00EAECBD /* GameViewController.swift */; };
+		CEB0F7821E23BDBD00EAECBD /* TimelineScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F7811E23BDBD00EAECBD /* TimelineScene.swift */; };
+		CEB0F7841E23BDBD00EAECBD /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F7831E23BDBD00EAECBD /* TimelineViewController.swift */; };
 		CEB0F7871E23BDBD00EAECBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F7851E23BDBD00EAECBD /* Main.storyboard */; };
 		CEB0F7891E23BDBD00EAECBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F7881E23BDBD00EAECBD /* Assets.xcassets */; };
 		CEB0F78C1E23BDBD00EAECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F78A1E23BDBD00EAECBD /* LaunchScreen.storyboard */; };
@@ -35,10 +35,10 @@
 		CE3660811E29717D006E3F72 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		CEB0F7781E23BDBD00EAECBD /* morse code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "morse code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CEB0F77D1E23BDBD00EAECBD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TimelineScene.sks; sourceTree = "<group>"; };
 		CEB0F77F1E23BDBD00EAECBD /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		CEB0F7811E23BDBD00EAECBD /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		CEB0F7831E23BDBD00EAECBD /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		CEB0F7811E23BDBD00EAECBD /* TimelineScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScene.swift; sourceTree = "<group>"; };
+		CEB0F7831E23BDBD00EAECBD /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		CEB0F7861E23BDBD00EAECBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEB0F7881E23BDBD00EAECBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB0F78B1E23BDBD00EAECBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -93,10 +93,10 @@
 			children = (
 				CEB0F7A11E24D80E00EAECBD /* 1kHz_tone.wav */,
 				CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */,
-				CEB0F77D1E23BDBD00EAECBD /* GameScene.sks */,
+				CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */,
 				CEB0F77F1E23BDBD00EAECBD /* Actions.sks */,
-				CEB0F7811E23BDBD00EAECBD /* GameScene.swift */,
-				CEB0F7831E23BDBD00EAECBD /* GameViewController.swift */,
+				CEB0F7811E23BDBD00EAECBD /* TimelineScene.swift */,
+				CEB0F7831E23BDBD00EAECBD /* TimelineViewController.swift */,
 				CEB0F7851E23BDBD00EAECBD /* Main.storyboard */,
 				CE3660811E29717D006E3F72 /* IntroViewController.swift */,
 				CEB0F7881E23BDBD00EAECBD /* Assets.xcassets */,
@@ -209,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB0F7871E23BDBD00EAECBD /* Main.storyboard in Resources */,
-				CEB0F77E1E23BDBD00EAECBD /* GameScene.sks in Resources */,
+				CEB0F77E1E23BDBD00EAECBD /* TimelineScene.sks in Resources */,
 				CEB0F7891E23BDBD00EAECBD /* Assets.xcassets in Resources */,
 				CEB0F78C1E23BDBD00EAECBD /* LaunchScreen.storyboard in Resources */,
 				CEB0F7A21E24D80E00EAECBD /* 1kHz_tone.wav in Resources */,
@@ -231,8 +231,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEB0F7821E23BDBD00EAECBD /* GameScene.swift in Sources */,
-				CEB0F7841E23BDBD00EAECBD /* GameViewController.swift in Sources */,
+				CEB0F7821E23BDBD00EAECBD /* TimelineScene.swift in Sources */,
+				CEB0F7841E23BDBD00EAECBD /* TimelineViewController.swift in Sources */,
 				CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */,
 				CE3660821E29717D006E3F72 /* IntroViewController.swift in Sources */,
 			);

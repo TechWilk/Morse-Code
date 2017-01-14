@@ -1,5 +1,5 @@
 //
-//  GameScene.swift
+//  TimelineScene.swift
 //  morse code
 //
 //  Created by Christopher Wilkinson on 09/01/2017.
@@ -11,14 +11,14 @@ import GameplayKit
 import AVFoundation
 
 
-protocol GameSceneDelegate {
+protocol TimelineSceneDelegate {
     func sentanceComplete(completed: Bool)
 }
 
 
-class GameScene: SKScene {
+class TimelineScene: SKScene {
     
-    var gameSceneDelegate: GameSceneDelegate?
+    var timelineSceneDelegate: TimelineSceneDelegate?
     
     var tonePlayer = AVAudioPlayer()
     
@@ -262,7 +262,7 @@ class GameScene: SKScene {
             self.spawnDah()
         }
         let actionEndOfSentance = SKAction.run {
-            self.gameSceneDelegate!.sentanceComplete(completed: true)
+            self.timelineSceneDelegate!.sentanceComplete(completed: true)
         }
         let waitOneMorseUnit = SKAction.wait(forDuration: 1/morseUnitPerSecond)
         

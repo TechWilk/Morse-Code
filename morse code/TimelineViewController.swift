@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  TimelineViewController.swift
 //  morse code
 //
 //  Created by Christopher Wilkinson on 09/01/2017.
@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController, GameSceneDelegate {
+class TimelineViewController: UIViewController, TimelineSceneDelegate {
     
     var text = "morse code"
     var showLetters = true
@@ -20,14 +20,14 @@ class GameViewController: UIViewController, GameSceneDelegate {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = GameScene(fileNamed: "GameScene") {
+            // Load the SKScene from 'TimelineScene.sks'
+            if let scene = TimelineScene(fileNamed: "TimelineScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .resizeFill
                 scene.sentance = text
                 scene.showLetters = showLetters
                 scene.morseUnitPerSecond = (wordsPerMin*41)/60
-                scene.gameSceneDelegate = self
+                scene.timelineSceneDelegate = self
                 
                 // Present the scene
                 view.presentScene(scene)

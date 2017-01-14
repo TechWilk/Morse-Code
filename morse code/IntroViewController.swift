@@ -15,7 +15,7 @@ class IntroViewController : UIViewController {
     @IBOutlet weak var wordsPerMinSegmentControl: UISegmentedControl!
     
     @IBAction func goButton(_ sender: Any) {
-        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TimelineViewController") as! GameViewController? {
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TimelineViewController") as! TimelineViewController? {
             let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if text != "" {
                 viewController.text = text
