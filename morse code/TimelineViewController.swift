@@ -13,7 +13,7 @@ import GameplayKit
 class TimelineViewController: UIViewController, TimelineSceneDelegate {
     
     var text = "morse code"
-    var showLetters = true
+    var showMorseCode = true
     var wordsPerMin = 5.0
 
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class TimelineViewController: UIViewController, TimelineSceneDelegate {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .resizeFill
                 scene.sentance = text
-                scene.showLetters = showLetters
+                scene.showMorseCode = showMorseCode
                 scene.morseUnitPerSecond = (wordsPerMin*41)/60
                 scene.timelineSceneDelegate = self
                 

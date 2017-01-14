@@ -11,7 +11,7 @@ import UIKit
 class IntroViewController : UIViewController {
     
     @IBOutlet weak var sentanceTextBox: UITextField!
-    @IBOutlet weak var showLettersSwitch: UISwitch!
+    @IBOutlet weak var showMorseCodeSwitch: UISwitch!
     @IBOutlet weak var wordsPerMinSegmentControl: UISegmentedControl!
     
     @IBAction func goButton(_ sender: Any) {
@@ -19,7 +19,7 @@ class IntroViewController : UIViewController {
             let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if text != "" {
                 viewController.text = text
-                viewController.showLetters = showLettersSwitch.isOn
+                viewController.showMorseCode = showMorseCodeSwitch.isOn
                 
                 switch wordsPerMinSegmentControl.selectedSegmentIndex {
                 case 0:
@@ -36,6 +36,10 @@ class IntroViewController : UIViewController {
                     viewController.wordsPerMin = 5.0
                 }
                 
+                let defaults = UserDefaults.standard
+                defaults.set(wordsPerMinSegmentControl.selectedSegmentIndex, forKey: "wordsPerMinIndex")
+                defaults.set(showMorseCodeSwitch.isOn, forKey: "showMorseCode")
+                
                 navigationController?.pushViewController(viewController, animated: true)
             }
             else {
@@ -46,6 +50,10 @@ class IntroViewController : UIViewController {
     
     override func viewDidLoad() {
         navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        let defaults = UserDefaults.standard
+        wordsPerMinSegmentControl.selectedSegmentIndex = defaults.integer(forKey: "wordsPerMinIndex")
+        showMorseCodeSwitch.isOn = defaults.bool(forKey: "showMorseCode")
     }
     
 }

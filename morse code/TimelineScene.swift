@@ -39,6 +39,7 @@ class TimelineScene: SKScene {
     var timeLabel = SKLabelNode()
     
     var sentance = "morse code"
+    var showMorseCode = true
     var showLetters = true
     
     var touchDown = false
@@ -209,7 +210,11 @@ class TimelineScene: SKScene {
                                               width: nodeWidth,
                                               height: CGFloat(unitDisplaySize)),
                                  cornerRadius: CGFloat(unitDisplaySize/2))
-        circle.fillColor = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        var alpha = 1
+        if !showMorseCode {
+            alpha = 0
+        }
+        circle.fillColor = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: CGFloat(alpha))
         circle.lineWidth = 0
         
         let texture = view?.texture(from: circle)
