@@ -263,9 +263,10 @@ class GameScene: SKScene {
         }
         let actionEndOfSentance = SKAction.run {
             self.gameSceneDelegate!.sentanceComplete(completed: true)
-            self.timeLabel.text = "Done"
         }
         let waitOneMorseUnit = SKAction.wait(forDuration: 1/morseUnitPerSecond)
+        
+        actions.append(SKAction.wait(forDuration: 1))
         
         for letter in sentance.characters {
             let letterLower = String(letter).lowercased()
