@@ -13,6 +13,8 @@ import GameplayKit
 class GameViewController: UIViewController, GameSceneDelegate {
     
     var text = "morse code"
+    var showLetters = true
+    var wordsPerMin = 5.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,8 @@ class GameViewController: UIViewController, GameSceneDelegate {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .resizeFill
                 scene.sentance = text
+                scene.showLetters = showLetters
+                scene.morseUnitPerSecond = (wordsPerMin*41)/60
                 scene.gameSceneDelegate = self
                 
                 // Present the scene

@@ -39,6 +39,7 @@ class GameScene: SKScene {
     var timeLabel = SKLabelNode()
     
     var sentance = "morse code"
+    var showLetters = true
     
     var touchDown = false
     var tapStartTime:NSDate!
@@ -269,7 +270,7 @@ class GameScene: SKScene {
         for letter in sentance.characters {
             let letterLower = String(letter).lowercased()
             if (chars[letterLower] != nil) {
-                if true { // if easy level selected
+                if showLetters {
                     actions.append(SKAction.run {
                         self.spawnCharacter(char: letter)
                     })
