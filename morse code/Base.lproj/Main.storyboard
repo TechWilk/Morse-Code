@@ -60,8 +60,8 @@
                                     <segment title="25 wpm"/>
                                 </segments>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show letters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-0R-aBl">
-                                <rect key="frame" x="231" y="434" width="109" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Morse Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-0R-aBl">
+                                <rect key="frame" x="231" y="434" width="140" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -80,7 +80,7 @@
                     <navigationItem key="navigationItem" id="Tdh-Az-7BC"/>
                     <connections>
                         <outlet property="sentanceTextBox" destination="sYq-PP-Rlk" id="a0X-Fg-BU3"/>
-                        <outlet property="showLettersSwitch" destination="0iX-Ad-fn5" id="icL-V5-QUf"/>
+                        <outlet property="showMorseCodeSwitch" destination="0iX-Ad-fn5" id="h3U-rC-VMi"/>
                         <outlet property="wordsPerMinSegmentControl" destination="5i4-GE-0VO" id="aG0-dp-rIT"/>
                     </connections>
                 </viewController>
