@@ -121,13 +121,6 @@ class TimelineScene: SKScene {
         tapButtonInner.name = "tapButtonInner"
         tapButtonInner.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         tapButton.addChild(tapButtonInner)
-        
-        buttonReleaseAction = SKAction.sequence([SKAction.wait(forDuration: 0.05),
-                                                 SKAction.run {
-            self.tonePlayer.stop()
-            self.tonePlayer.prepareToPlay()
-            (self.tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1)
-            }])
     }
     
     func setupLabels() {
@@ -238,7 +231,11 @@ class TimelineScene: SKScene {
     
     func tapButtonReleased() {
         let tapDuration = -tapStartTime.timeIntervalSinceNow
-        tapButton.run(buttonReleaseAction)
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) {_ in 
+            self.tonePlayer.stop()
+            self.tonePlayer.prepareToPlay()
+            (self.tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1)
+        }
         
         if tapDuration <= (1/morseUnitPerSecond)*1.2 {
             timeLabel.text = "Dit"
