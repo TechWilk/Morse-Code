@@ -43,7 +43,7 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
                 navigationController?.pushViewController(viewController, animated: true)
             }
             else {
-                // error message no text entered
+                sentanceTextBox.becomeFirstResponder()
             }
         }
     }
@@ -63,8 +63,8 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        goButton(sentanceTextBox)
         textField.resignFirstResponder()
+        goButton(sentanceTextBox)
         return true
     }
     
