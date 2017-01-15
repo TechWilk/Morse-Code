@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IntroViewController : UIViewController {
+class IntroViewController : UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var sentanceTextBox: UITextField!
     @IBOutlet weak var showMorseCodeSwitch: UISwitch!
@@ -43,10 +43,12 @@ class IntroViewController : UIViewController {
                 navigationController?.pushViewController(viewController, animated: true)
             }
             else {
-                // error message
+                // error message no text entered
             }
         }
     }
+    
+    
     
     override func viewDidLoad() {
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -54,6 +56,16 @@ class IntroViewController : UIViewController {
         let defaults = UserDefaults.standard
         wordsPerMinSegmentControl.selectedSegmentIndex = defaults.integer(forKey: "wordsPerMinIndex")
         showMorseCodeSwitch.isOn = defaults.bool(forKey: "showMorseCode")
+        
+        sentanceTextBox.becomeFirstResponder()
+        sentanceTextBox.delegate = self
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        goButton(sentanceTextBox)
+        textField.resignFirstResponder()
+        return true
     }
     
 }
