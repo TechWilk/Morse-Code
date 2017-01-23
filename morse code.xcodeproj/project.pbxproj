@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CE3660821E29717D006E3F72 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3660811E29717D006E3F72 /* IntroViewController.swift */; };
+		CE88B7B61E2CE3E800C2B808 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE88B7B51E2CE3E800C2B808 /* NavigationController.swift */; };
+		CE8C98D41E368C2F001F5E65 /* MorseCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8C98D31E368C2F001F5E65 /* MorseCharacter.swift */; };
 		CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */; };
 		CEB0F77E1E23BDBD00EAECBD /* TimelineScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */; };
 		CEB0F7801E23BDBD00EAECBD /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77F1E23BDBD00EAECBD /* Actions.sks */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		CE3660811E29717D006E3F72 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		CE88B7B51E2CE3E800C2B808 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		CE8C98D31E368C2F001F5E65 /* MorseCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseCharacter.swift; sourceTree = "<group>"; };
 		CEB0F7781E23BDBD00EAECBD /* morse code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "morse code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TimelineScene.sks; sourceTree = "<group>"; };
@@ -96,7 +100,9 @@
 				CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */,
 				CEB0F77F1E23BDBD00EAECBD /* Actions.sks */,
 				CEB0F7811E23BDBD00EAECBD /* TimelineScene.swift */,
+				CE8C98D31E368C2F001F5E65 /* MorseCharacter.swift */,
 				CEB0F7831E23BDBD00EAECBD /* TimelineViewController.swift */,
+				CE88B7B51E2CE3E800C2B808 /* NavigationController.swift */,
 				CEB0F7851E23BDBD00EAECBD /* Main.storyboard */,
 				CE3660811E29717D006E3F72 /* IntroViewController.swift */,
 				CEB0F7881E23BDBD00EAECBD /* Assets.xcassets */,
@@ -233,6 +239,8 @@
 			files = (
 				CEB0F7821E23BDBD00EAECBD /* TimelineScene.swift in Sources */,
 				CEB0F7841E23BDBD00EAECBD /* TimelineViewController.swift in Sources */,
+				CE8C98D41E368C2F001F5E65 /* MorseCharacter.swift in Sources */,
+				CE88B7B61E2CE3E800C2B808 /* NavigationController.swift in Sources */,
 				CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */,
 				CE3660821E29717D006E3F72 /* IntroViewController.swift in Sources */,
 			);

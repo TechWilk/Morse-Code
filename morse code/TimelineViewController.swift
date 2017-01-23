@@ -26,7 +26,8 @@ class TimelineViewController: UIViewController, TimelineSceneDelegate {
                 scene.scaleMode = .resizeFill
                 scene.sentance = text
                 scene.showMorseCode = showMorseCode
-                scene.morseUnitPerSecond = (wordsPerMin*41)/60
+                scene.morseWordsPerMin = wordsPerMin
+                scene.farnsworthWordsPerMin = wordsPerMin
                 scene.timelineSceneDelegate = self
                 
                 // Present the scene
@@ -45,7 +46,7 @@ class TimelineViewController: UIViewController, TimelineSceneDelegate {
     }
 
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
