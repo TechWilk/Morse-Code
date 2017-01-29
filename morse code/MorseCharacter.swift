@@ -13,14 +13,12 @@ class MorseCharacter: SKSpriteNode {
     private(set) var unitsWide = 1
     private(set) var unitDisplaySize = 50.0
     
-    override var color: UIColor {
-        didSet {
-            self.texture = texture(color: self.color)
-        }
-    }
     
-    
-    init(unitDisplaySize: Double, unitsWide: Int, name: String, color: UIColor) {
+    init(unitDisplaySize: Double, unitsWide: Int, name: String, color: UIColor, view: SKView) {
+        
+        let texture = self.texture(color: color, view: view)
+        
+        super.init(texture: texture, color: .clear, size: texture!.size())
         
         self.unitsWide = unitsWide
         self.unitDisplaySize = unitDisplaySize
@@ -32,8 +30,6 @@ class MorseCharacter: SKSpriteNode {
         self.position = CGPoint(x: (frame.maxX + nodeWidth/2), y: frame.midY + (frame.maxY - frame.midY) / 2)
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.name = name
-        
-        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +37,7 @@ class MorseCharacter: SKSpriteNode {
     }
     
     
-    private func texture(color: UIColor) -> SKTexture? {
+    private func texture(color: UIColor, view: SKView) -> SKTexture? {
         let nodeWidth = CGFloat(unitDisplaySize * Double(unitsWide))
         let circle = SKShapeNode(rect: CGRect(x: frame.maxX + nodeWidth/2,
                                               y: frame.midY + (frame.maxY - frame.midY) / 2,
@@ -52,7 +48,12 @@ class MorseCharacter: SKSpriteNode {
         circle.lineWidth = 0
         circle.fillColor = color
         
-        return SKView.texture(from: circle) // need instance of SKView to create SKTexture from SKShapeNode
+        return view.texture(from: circle) // need instance of SKView to create SKTexture from SKShapeNode
+    }
+    
+    func changeColor(color: UIColor, view: SKView) {
+        self.color = color
+        self.texture = texture(color: color, view: view)
     }
 
 }

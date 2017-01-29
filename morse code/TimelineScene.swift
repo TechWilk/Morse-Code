@@ -70,8 +70,8 @@ class TimelineScene: SKScene {
         }
         let color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: CGFloat(alpha))
         
-        ditSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 1, name: dit, color: color)
-        dahSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 3, name: dah, color: color)
+        ditSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 1, name: dit, color: color, view: view!)
+        dahSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 3, name: dah, color: color, view: view!)
         super.init()
     }
     
@@ -245,8 +245,8 @@ class TimelineScene: SKScene {
         }
         let color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: CGFloat(alpha))
         
-        ditSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 1, name: dit, color: color)
-        dahSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 3, name: dah, color: color)
+        ditSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 1, name: dit, color: color, view: view!)
+        dahSprite = MorseCharacter(unitDisplaySize: unitDisplaySize, unitsWide: 3, name: dah, color: color, view: view!)
     }
     
     
@@ -398,7 +398,7 @@ class TimelineScene: SKScene {
         for node in timeline.children {
             if markerTapZone.intersects(node) {
                 let color = UIColor.red
-                (node as? MorseCharacter)?.color = color
+                (node as? MorseCharacter)?.changeColor(color: color, view: view!)
                 timeLabel.text = "Success"
             }
         }
