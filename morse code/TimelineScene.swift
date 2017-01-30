@@ -34,9 +34,11 @@ class TimelineScene: SKScene {
     
     var chars = [String: Array<String>]()
     
+    let timeline = SKSpriteNode()
     let tapButton = SKSpriteNode()
     var wordsPerMinLabel = SKLabelNode()
     var timeLabel = SKLabelNode()
+    let markerTapZone = SKSpriteNode()
     
     var sentance = "morse code"
     var showMorseCode = true
@@ -139,12 +141,21 @@ class TimelineScene: SKScene {
     }
     
     func setupTimeline() {
+        
+        timeline.size = frame.size
+        
         let marker = SKSpriteNode()
         marker.size = CGSize(width: 2, height: unitDisplaySize*2)
         marker.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY + (frame.maxY - frame.midY) / 2)
         marker.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
         marker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addChild(marker)
+        
+        markerTapZone.size = CGSize(width: unitDisplaySize, height: 25 )
+        markerTapZone.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY + (frame.maxY - frame.midY) / 2)
+        markerTapZone.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 0)
+        markerTapZone.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        addChild(markerTapZone)
     }
     
     func setupCharactersArray() {
@@ -198,24 +209,42 @@ class TimelineScene: SKScene {
     
     func morseCodeSprite(unitsWide: Int) -> SKSpriteNode {
         let nodeWidth = CGFloat(unitDisplaySize * Double(unitsWide))
-        let circle = SKShapeNode(rect: CGRect(x: frame.maxX + nodeWidth/2,
-                                              y: frame.midY + (frame.maxY - frame.midY) / 2,
-                                              width: nodeWidth,
-                                              height: CGFloat(unitDisplaySize)),
-                                 cornerRadius: CGFloat(unitDisplaySize/2))
+        
         var alpha = 1
         if !showMorseCode {
             alpha = 0
         }
-        circle.fillColor = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: CGFloat(alpha))
-        circle.lineWidth = 0
         
-        let texture = view?.texture(from: circle)
+        let color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: CGFloat(alpha))
+        
+        let texture = morseCodeSpriteTexture(unitsWide: unitsWide, color: color)
         let sprite = SKSpriteNode(texture: texture)
         sprite.size = CGSize(width: nodeWidth, height: CGFloat(unitDisplaySize))
         sprite.position = CGPoint(x: (frame.maxX + nodeWidth/2), y: frame.midY + (frame.maxY - frame.midY) / 2)
         sprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        if unitsWide == 1 {
+            sprite.name = dit
+        }
+        if unitsWide == 3 {
+            sprite.name = dah
+        }
+        
         return sprite
+    }
+    
+    func morseCodeSpriteTexture(unitsWide: Int, color: UIColor) -> SKTexture {
+        let nodeWidth = CGFloat(unitDisplaySize * Double(unitsWide))
+        let circle = SKShapeNode(rect: CGRect(x: frame.maxX + nodeWidth/2,
+        y: frame.midY + (frame.maxY - frame.midY) / 2,
+        width: nodeWidth,
+        height: CGFloat(unitDisplaySize)),
+        cornerRadius: CGFloat(unitDisplaySize/2))
+
+        circle.fillColor = color
+        circle.lineWidth = 0
+        
+        return (view?.texture(from: circle))!
     }
     
     
@@ -239,9 +268,11 @@ class TimelineScene: SKScene {
         
         if tapDuration <= (1/morseUnitPerSecond)*1.2 {
             timeLabel.text = "Dit"
+            _ = userEnteredCorrectly(morse: dit)
         }
         else if tapDuration <= (1/morseUnitPerSecond*3)*1.2 {
             timeLabel.text = "Dah"
+            _ = userEnteredCorrectly(morse: dah)
         }
         else {
             timeLabel.text = "N/A"
@@ -333,13 +364,39 @@ class TimelineScene: SKScene {
         sprite.run(SKAction.sequence([move, SKAction.removeFromParent()]))
     }
     
+    
     func setupTimelineAnimation(label: SKLabelNode) {
         let move = SKAction.moveTo(x: frame.minX-label.frame.width/2, duration: TimeInterval(timelineAnimationDuration(width: label.frame.width)))
         label.run(SKAction.sequence([move, SKAction.removeFromParent()]))
     }
     
+    
     func timelineAnimationDuration(width: CGFloat) -> CGFloat {
         let distanceInUnits = (frame.maxX - frame.minX + width) / CGFloat(unitDisplaySize)
         return CGFloat(1/morseUnitPerSecond) * distanceInUnits
+    }
+    
+    
+    func userEnteredCorrectly(morse: String) -> Bool {
+        if morse != dit && morse != dah {
+            return false
+        }
+        for node in self.children {
+            if markerTapZone.intersects(node) && (node.name == dit || node.name == dah) {
+                let color = UIColor.green
+                let node = node as? SKSpriteNode
+                if node?.name == morse {
+                    var unitsWide = 1
+                    if node?.name == dah {
+                        unitsWide = 3
+                    }
+                    node?.texture = morseCodeSpriteTexture(unitsWide: unitsWide, color: color)
+                    timeLabel.text = "Success"
+                    return true
+                }
+            }
+        }
+        
+        return false
     }
 }
