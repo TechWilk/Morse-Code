@@ -162,6 +162,10 @@ class TimelineScene: SKScene {
         dahSprite = morseCodeSprite(unitsWide: 3)
     }
     
+    
+    /* ~~~~~~~~~~~ MORSE SPRITES ~~~~~~~~~~ */
+    
+    
     func morseCodeSprite(unitsWide: Int) -> SKSpriteNode {
         let nodeWidth = CGFloat(unitDisplaySize * Double(unitsWide))
         
