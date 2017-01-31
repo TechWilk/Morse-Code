@@ -16,7 +16,7 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
     }
     
     @IBOutlet weak var sentanceTextBox: UITextField!
-    @IBOutlet weak var showMorseCodeSwitch: UISwitch!
+    @IBOutlet weak var playbackBeforeTimelineSwitch: UISwitch!
     @IBOutlet weak var wordsPerMinSegmentControl: UISegmentedControl!
     
     @IBAction func goButton(_ sender: Any) {
@@ -24,9 +24,9 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         if text != "" {
             let defaults = UserDefaults.standard
             defaults.set(wordsPerMinSegmentControl.selectedSegmentIndex, forKey: "wordsPerMinIndex")
-            defaults.set(showMorseCodeSwitch.isOn, forKey: "showMorseCode")
+            defaults.set(playbackBeforeTimelineSwitch.isOn, forKey: "playbackBeforeTimeline")
             
-            if showMorseCodeSwitch.isOn {
+            if playbackBeforeTimelineSwitch.isOn {
                 performSegue(withIdentifier: Storyboard.playbackSeque, sender: nil)
             }
             else {
@@ -45,7 +45,7 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         
         let defaults = UserDefaults.standard
         wordsPerMinSegmentControl.selectedSegmentIndex = defaults.integer(forKey: "wordsPerMinIndex")
-        showMorseCodeSwitch.isOn = defaults.bool(forKey: "showMorseCode")
+        playbackBeforeTimelineSwitch.isOn = defaults.bool(forKey: "playbackBeforeTimeline")
         
         sentanceTextBox.becomeFirstResponder()
         sentanceTextBox.delegate = self

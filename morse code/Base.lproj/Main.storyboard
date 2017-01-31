@@ -61,13 +61,6 @@
                                     <segment title="25 wpm"/>
                                 </segments>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Play before timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-0R-aBl">
-                                <rect key="frame" x="117" y="111" width="151" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Text to display" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sYq-PP-Rlk">
                                 <rect key="frame" x="34" y="238" width="306" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -75,13 +68,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="go"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Listen before tapping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-0R-aBl">
+                                <rect key="frame" x="106" y="111" width="163" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Tdh-Az-7BC"/>
                     <connections>
+                        <outlet property="playbackBeforeTimelineSwitch" destination="0iX-Ad-fn5" id="f91-AH-Nzh"/>
                         <outlet property="sentanceTextBox" destination="sYq-PP-Rlk" id="a0X-Fg-BU3"/>
-                        <outlet property="showMorseCodeSwitch" destination="0iX-Ad-fn5" id="h3U-rC-VMi"/>
                         <outlet property="wordsPerMinSegmentControl" destination="5i4-GE-0VO" id="aG0-dp-rIT"/>
                         <segue destination="2Vj-AW-hPf" kind="show" identifier="playback" id="aqt-CP-4G6"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="timeline" id="13v-A2-Fxs"/>
