@@ -33,6 +33,8 @@ class PlaybackScene: SKScene {
     
     var wordsPerMinLabel = SKLabelNode()
     var textLabel = SKLabelNode()
+    var skipLabel = SKLabelNode()
+    var backLabel = SKLabelNode()
     
     var sentance = "morse code"
     
@@ -67,6 +69,20 @@ class PlaybackScene: SKScene {
     }
     
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if backLabel.contains((touches.first?.location(in: self))!) {
+            removeAllActions()
+            tonePlayer.stop()
+            playbackSceneDelegate?.sentanceComplete(completed: false)
+        }
+        else if skipLabel.contains((touches.first?.location(in: self))!) {
+            removeAllActions()
+            tonePlayer.stop()
+            playbackSceneDelegate?.sentanceComplete(completed: true)
+        }
+    }
+    
+    
     /* ~~~~~~~~~~~ SETUP ~~~~~~~~~~ */
     
     
@@ -83,6 +99,16 @@ class PlaybackScene: SKScene {
         textLabel.text = ""
         textLabel.fontSize = 50.0
         addChild(textLabel)
+        
+        backLabel.text = "< Back"
+        backLabel.position = CGPoint(x: frame.minX + edgePadding, y: frame.maxY - backLabel.frame.height - edgePadding )
+        backLabel.horizontalAlignmentMode = .left
+        addChild(backLabel)
+        
+        skipLabel.text = "Skip >"
+        skipLabel.position = CGPoint(x: frame.midX, y: frame.midY - (frame.midY - frame.minY)/2 - backLabel.frame.height/2 )
+        skipLabel.horizontalAlignmentMode = .center
+        addChild(skipLabel)
 
     }
 

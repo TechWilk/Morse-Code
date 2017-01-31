@@ -45,7 +45,9 @@ class PlaybackViewController: UIViewController, PlaybackSceneDelegate {
     
     func sentanceComplete(completed: Bool) {
         _ = navigationController?.popViewController(animated: true)
-        performSegue(withIdentifier: Storyboard.timelineSegue, sender: nil)
+        if completed {
+            performSegue(withIdentifier: Storyboard.timelineSegue, sender: nil)
+        }
     }
     
     override var shouldAutorotate: Bool {
