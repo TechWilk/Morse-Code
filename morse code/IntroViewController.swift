@@ -18,7 +18,7 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
     struct Defaults {
         static let hasLaunchedOnce = "hasLaunchedOnce"
         static let wordsPerMinIndex = "wordsPerMinIndex"
-        static let playbackBeforeTimeline = "wordsPerMinIndex"
+        static let playbackBeforeTimeline = "playbackBeforeTimeline"
     }
     
     @IBOutlet weak var sentanceTextBox: UITextField!
