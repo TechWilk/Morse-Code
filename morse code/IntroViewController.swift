@@ -15,6 +15,12 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         static let timelineSegue = "timeline"
     }
     
+    struct Defaults {
+        static let hasLaunchedOnce = "hasLaunchedOnce"
+        static let wordsPerMinIndex = "wordsPerMinIndex"
+        static let playbackBeforeTimeline = "wordsPerMinIndex"
+    }
+    
     @IBOutlet weak var sentanceTextBox: UITextField!
     @IBOutlet weak var playbackBeforeTimelineSwitch: UISwitch!
     @IBOutlet weak var wordsPerMinSegmentControl: UISegmentedControl!
@@ -23,8 +29,8 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if text != "" {
             let defaults = UserDefaults.standard
-            defaults.set(wordsPerMinSegmentControl.selectedSegmentIndex, forKey: "wordsPerMinIndex")
-            defaults.set(playbackBeforeTimelineSwitch.isOn, forKey: "playbackBeforeTimeline")
+            defaults.set(wordsPerMinSegmentControl.selectedSegmentIndex, forKey: Defaults.wordsPerMinIndex)
+            defaults.set(playbackBeforeTimelineSwitch.isOn, forKey: Defaults.playbackBeforeTimeline)
             
             if playbackBeforeTimelineSwitch.isOn {
                 performSegue(withIdentifier: Storyboard.playbackSeque, sender: nil)
@@ -41,11 +47,15 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
     
     
     override func viewDidLoad() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
         
         let defaults = UserDefaults.standard
-        wordsPerMinSegmentControl.selectedSegmentIndex = defaults.integer(forKey: "wordsPerMinIndex")
-        playbackBeforeTimelineSwitch.isOn = defaults.bool(forKey: "playbackBeforeTimeline")
+        ifFirstLaunch(defaults: defaults)
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        
+        wordsPerMinSegmentControl.selectedSegmentIndex = defaults.integer(forKey: Defaults.wordsPerMinIndex)
+        playbackBeforeTimelineSwitch.isOn = defaults.bool(forKey: Defaults.playbackBeforeTimeline)
         
         sentanceTextBox.becomeFirstResponder()
         sentanceTextBox.delegate = self
@@ -93,6 +103,17 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         }
 
         
+    }
+    
+    func ifFirstLaunch(defaults: UserDefaults) {
+        if !defaults.bool(forKey: Defaults.hasLaunchedOnce)
+        {
+            defaults.set(true, forKey: Defaults.hasLaunchedOnce)
+            
+            // first run defaults
+            defaults.set(0, forKey: Defaults.wordsPerMinIndex) // index for 5 wpm
+            defaults.set(true, forKey: Defaults.playbackBeforeTimeline)
+        }
     }
     
 }
