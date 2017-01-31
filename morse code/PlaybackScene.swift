@@ -45,18 +45,18 @@ class PlaybackScene: SKScene {
         tonePlayer.numberOfLoops = -1 // loop indefinitley
         tonePlayer.prepareToPlay()
         
-        // play dit tone to give user a sense of the speed
-        // (plus as a work-around to bug in AVAudioPlayer where first-time playing of looped audio stutters!)
+        // play dit tone as a work-around to bug in AVAudioPlayer where first-time playing of looped audio stutters!
         run(SKAction.sequence([SKAction.run({
-            self.tonePlayer.play()
-        }),
-                               SKAction.wait(forDuration: 1/morseUnitPerSecond),
-                               SKAction.run({
-                                self.tonePlayer.stop()
-                                self.tonePlayer.prepareToPlay()
-                               })]))
-        tonePlayer.play()
-        
+                self.tonePlayer.volume = 0
+                self.tonePlayer.play()
+            }),
+           SKAction.wait(forDuration: 1/morseUnitPerSecond),
+           SKAction.run({
+                self.tonePlayer.stop()
+                self.tonePlayer.prepareToPlay()
+                self.tonePlayer.volume = 1.0
+           })])
+        )
         
         self.backgroundColor = SKColor(red: 60/255, green: 173/255, blue: 237/255, alpha: 1)
         
