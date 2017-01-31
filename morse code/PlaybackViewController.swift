@@ -12,6 +12,10 @@ import GameplayKit
 
 class PlaybackViewController: UIViewController, PlaybackSceneDelegate {
     
+    struct Storyboard {
+        static let timelineSegue = "timeline"
+    }
+    
     var text = "morse code"
     var wordsPerMin = 5.0
     
@@ -41,7 +45,7 @@ class PlaybackViewController: UIViewController, PlaybackSceneDelegate {
     
     func sentanceComplete(completed: Bool) {
         _ = navigationController?.popViewController(animated: true)
-        performSegue(withIdentifier: "timeline", sender: nil)
+        performSegue(withIdentifier: Storyboard.timelineSegue, sender: nil)
     }
     
     override var shouldAutorotate: Bool {
@@ -66,7 +70,7 @@ class PlaybackViewController: UIViewController, PlaybackSceneDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "timeline" {
+        if segue.identifier == Storyboard.timelineSegue {
             let destination = segue.destination as! TimelineViewController
             destination.text = self.text
             destination.wordsPerMin = self.wordsPerMin

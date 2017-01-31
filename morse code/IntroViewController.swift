@@ -10,6 +10,11 @@ import UIKit
 
 class IntroViewController : UIViewController, UITextFieldDelegate {
     
+    struct Storyboard {
+        static let playbackSeque = "playback"
+        static let timelineSegue = "timeline"
+    }
+    
     @IBOutlet weak var sentanceTextBox: UITextField!
     @IBOutlet weak var showMorseCodeSwitch: UISwitch!
     @IBOutlet weak var wordsPerMinSegmentControl: UISegmentedControl!
@@ -22,10 +27,10 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
             defaults.set(showMorseCodeSwitch.isOn, forKey: "showMorseCode")
             
             if showMorseCodeSwitch.isOn {
-                performSegue(withIdentifier: "playback", sender: nil)
+                performSegue(withIdentifier: Storyboard.playbackSeque, sender: nil)
             }
             else {
-                performSegue(withIdentifier: "timeline", sender: nil)
+                performSegue(withIdentifier: Storyboard.timelineSegue, sender: nil)
             }
         }
         else {
@@ -57,44 +62,33 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         
         let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        if segue.identifier == "playback" {
+        var wordsPerMin = 0.0
+        switch wordsPerMinSegmentControl.selectedSegmentIndex {
+        case 0:
+            wordsPerMin = 5.0
+        case 1:
+            wordsPerMin = 10.0
+        case 2:
+            wordsPerMin = 15.0
+        case 3:
+            wordsPerMin = 20.0
+        case 4:
+            wordsPerMin = 25.0
+        default:
+            wordsPerMin = 5.0
+        }
+        
+        if segue.identifier == Storyboard.playbackSeque {
             let destination = segue.destination as! PlaybackViewController
             destination.text = text
-            
-            switch wordsPerMinSegmentControl.selectedSegmentIndex {
-            case 0:
-                destination.wordsPerMin = 5.0
-            case 1:
-                destination.wordsPerMin = 10.0
-            case 2:
-                destination.wordsPerMin = 15.0
-            case 3:
-                destination.wordsPerMin = 20.0
-            case 4:
-                destination.wordsPerMin = 25.0
-            default:
-                destination.wordsPerMin = 5.0
-            }
+            destination.wordsPerMin = wordsPerMin
             
         }
-        if segue.identifier == "timeline" {
+        
+        if segue.identifier == Storyboard.timelineSegue {
             let destination = segue.destination as! TimelineViewController
             destination.text = text
-            
-            switch wordsPerMinSegmentControl.selectedSegmentIndex {
-            case 0:
-                destination.wordsPerMin = 5.0
-            case 1:
-                destination.wordsPerMin = 10.0
-            case 2:
-                destination.wordsPerMin = 15.0
-            case 3:
-                destination.wordsPerMin = 20.0
-            case 4:
-                destination.wordsPerMin = 25.0
-            default:
-                destination.wordsPerMin = 5.0
-            }
+            destination.wordsPerMin = wordsPerMin
             
         }
 
