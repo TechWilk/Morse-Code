@@ -34,7 +34,7 @@ class TimelineScene: SKScene {
     
     var chars = MorseCode.charactersArray()
     
-    let timeline = SKSpriteNode()
+    let timeline = SKNode()
     let tapButton = SKSpriteNode()
     var wordsPerMinLabel = SKLabelNode()
     var timeLabel = SKLabelNode()
@@ -141,8 +141,6 @@ class TimelineScene: SKScene {
     
     func setupTimeline() {
         
-        timeline.size = frame.size
-        
         let marker = SKSpriteNode()
         marker.size = CGSize(width: 2, height: unitDisplaySize*2)
         marker.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY + (frame.maxY - frame.midY) / 2)
@@ -155,6 +153,8 @@ class TimelineScene: SKScene {
         markerTapZone.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 0)
         markerTapZone.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addChild(markerTapZone)
+        
+        addChild(timeline)
     }
     
     func setupMorseCodeSprites() {
@@ -296,13 +296,13 @@ class TimelineScene: SKScene {
     
     func spawnDit() {
         let sprite = ditSprite.copy() as! SKSpriteNode
-        addChild(sprite)
+        timeline.addChild(sprite)
         setupTimelineAnimation(sprite: sprite)
     }
     
     func spawnDah() {
         let sprite = dahSprite.copy() as! SKSpriteNode
-        addChild(sprite)
+        timeline.addChild(sprite)
         setupTimelineAnimation(sprite: sprite)
     }
     
@@ -340,8 +340,8 @@ class TimelineScene: SKScene {
         if morse != dit && morse != dah {
             return false
         }
-        for node in self.children {
-            if markerTapZone.intersects(node) && (node.name == dit || node.name == dah) {
+        for node in timeline.children {
+            if markerTapZone.intersects(node) {
                 let color = UIColor.green
                 let node = node as? SKSpriteNode
                 if node?.name == morse {
