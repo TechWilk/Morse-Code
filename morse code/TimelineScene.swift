@@ -38,6 +38,7 @@ class TimelineScene: SKScene {
     let tapButton = SKSpriteNode()
     var wordsPerMinLabel = SKLabelNode()
     var timeLabel = SKLabelNode()
+    var backLabel = SKLabelNode()
     let markerTapZone = SKSpriteNode()
     
     var sentance = "morse code"
@@ -104,6 +105,9 @@ class TimelineScene: SKScene {
                 return
             }
         }
+        else if backLabel.contains((touches.first?.location(in: self))!) {
+            timelineSceneDelegate?.sentanceComplete(completed: false)
+        }
     }
     
     
@@ -136,6 +140,11 @@ class TimelineScene: SKScene {
         timeLabel.position = CGPoint(x: frame.maxX - edgePadding, y: (frame.minY + 10 + wordsPerMinLabel.fontSize + edgePadding) )
         timeLabel.horizontalAlignmentMode = .right
         addChild(timeLabel)
+        
+        backLabel.text = "< Back"
+        backLabel.position = CGPoint(x: frame.minX + edgePadding, y: frame.maxY - backLabel.frame.height - edgePadding )
+        backLabel.horizontalAlignmentMode = .left
+        addChild(backLabel)
         
     }
     
