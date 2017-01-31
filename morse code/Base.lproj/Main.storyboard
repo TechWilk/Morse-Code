@@ -61,8 +61,8 @@
                                     <segment title="25 wpm"/>
                                 </segments>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Morse Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-0R-aBl">
-                                <rect key="frame" x="117" y="111" width="140" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Play before timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-0R-aBl">
+                                <rect key="frame" x="117" y="111" width="151" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -83,6 +83,8 @@
                         <outlet property="sentanceTextBox" destination="sYq-PP-Rlk" id="a0X-Fg-BU3"/>
                         <outlet property="showMorseCodeSwitch" destination="0iX-Ad-fn5" id="h3U-rC-VMi"/>
                         <outlet property="wordsPerMinSegmentControl" destination="5i4-GE-0VO" id="aG0-dp-rIT"/>
+                        <segue destination="2Vj-AW-hPf" kind="show" identifier="playback" id="aqt-CP-4G6"/>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="timeline" id="13v-A2-Fxs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUN-lR-n7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -107,5 +109,29 @@
             </objects>
             <point key="canvasLocation" x="38" y="36"/>
         </scene>
+        <!--Playback View Controller-->
+        <scene sceneID="747-Jv-Enf">
+            <objects>
+                <viewController storyboardIdentifier="PlaybackViewController" id="2Vj-AW-hPf" customClass="PlaybackViewController" customModule="morse_code" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VAj-9C-IS4"/>
+                        <viewControllerLayoutGuide type="bottom" id="FfE-Xt-f4V"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jeZ-yI-KMr" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="timeline" id="qYU-g0-nNF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pzF-jS-UYH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="-690"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="13v-A2-Fxs"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -15,36 +15,21 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var wordsPerMinSegmentControl: UISegmentedControl!
     
     @IBAction func goButton(_ sender: Any) {
-        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TimelineViewController") as! TimelineViewController? {
-            let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            if text != "" {
-                viewController.text = text
-                viewController.showMorseCode = showMorseCodeSwitch.isOn
-                
-                switch wordsPerMinSegmentControl.selectedSegmentIndex {
-                case 0:
-                    viewController.wordsPerMin = 5.0
-                case 1:
-                    viewController.wordsPerMin = 10.0
-                case 2:
-                    viewController.wordsPerMin = 15.0
-                case 3:
-                    viewController.wordsPerMin = 20.0
-                case 4:
-                    viewController.wordsPerMin = 25.0
-                default:
-                    viewController.wordsPerMin = 5.0
-                }
-                
-                let defaults = UserDefaults.standard
-                defaults.set(wordsPerMinSegmentControl.selectedSegmentIndex, forKey: "wordsPerMinIndex")
-                defaults.set(showMorseCodeSwitch.isOn, forKey: "showMorseCode")
-                
-                navigationController?.pushViewController(viewController, animated: true)
+        let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if text != "" {
+            let defaults = UserDefaults.standard
+            defaults.set(wordsPerMinSegmentControl.selectedSegmentIndex, forKey: "wordsPerMinIndex")
+            defaults.set(showMorseCodeSwitch.isOn, forKey: "showMorseCode")
+            
+            if showMorseCodeSwitch.isOn {
+                performSegue(withIdentifier: "playback", sender: nil)
             }
             else {
-                sentanceTextBox.becomeFirstResponder()
+                performSegue(withIdentifier: "timeline", sender: nil)
             }
+        }
+        else {
+            sentanceTextBox.becomeFirstResponder()
         }
     }
     
@@ -66,6 +51,54 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         goButton(sentanceTextBox)
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let text = sentanceTextBox.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        if segue.identifier == "playback" {
+            let destination = segue.destination as! PlaybackViewController
+            destination.text = text
+            
+            switch wordsPerMinSegmentControl.selectedSegmentIndex {
+            case 0:
+                destination.wordsPerMin = 5.0
+            case 1:
+                destination.wordsPerMin = 10.0
+            case 2:
+                destination.wordsPerMin = 15.0
+            case 3:
+                destination.wordsPerMin = 20.0
+            case 4:
+                destination.wordsPerMin = 25.0
+            default:
+                destination.wordsPerMin = 5.0
+            }
+            
+        }
+        if segue.identifier == "timeline" {
+            let destination = segue.destination as! TimelineViewController
+            destination.text = text
+            
+            switch wordsPerMinSegmentControl.selectedSegmentIndex {
+            case 0:
+                destination.wordsPerMin = 5.0
+            case 1:
+                destination.wordsPerMin = 10.0
+            case 2:
+                destination.wordsPerMin = 15.0
+            case 3:
+                destination.wordsPerMin = 20.0
+            case 4:
+                destination.wordsPerMin = 25.0
+            default:
+                destination.wordsPerMin = 5.0
+            }
+            
+        }
+
+        
     }
     
 }
