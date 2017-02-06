@@ -15,7 +15,7 @@ class TimelineViewController: UIViewController, TimelineSceneDelegate {
     var text = "morse code"
     var showMorseCode = true
     var wordsPerMin = 5.0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +41,7 @@ class TimelineViewController: UIViewController, TimelineSceneDelegate {
     }
     
     func sentanceComplete(completed: Bool) {
-        _ = navigationController?.popViewController(animated: true)
+        _ = navigationController?.popToRootViewController(animated: true)
     }
 
     override var shouldAutorotate: Bool {

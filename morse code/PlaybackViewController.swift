@@ -44,9 +44,12 @@ class PlaybackViewController: UIViewController, PlaybackSceneDelegate {
     }
     
     func sentanceComplete(completed: Bool) {
-        _ = navigationController?.popViewController(animated: true)
         if completed {
             performSegue(withIdentifier: Storyboard.timelineSegue, sender: nil)
+        }
+        else
+        {
+            _ = navigationController?.popToRootViewController(animated: true)
         }
     }
     
