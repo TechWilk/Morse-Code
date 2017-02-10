@@ -112,7 +112,7 @@ class TimelineScene: SKScene {
     }
     
     
-    /* ~~~~~~~~~~~ SETUP ~~~~~~~~~~ */
+    // -- MARK: Setup
     
     
     func setupButtons() {
@@ -173,7 +173,7 @@ class TimelineScene: SKScene {
     }
     
     
-    /* ~~~~~~~~~~~ MORSE SPRITES ~~~~~~~~~~ */
+    // -- MARK: Morse Sprites
     
     
     func morseCodeSprite(unitsWide: Int) -> SKSpriteNode {
@@ -217,7 +217,7 @@ class TimelineScene: SKScene {
     }
     
     
-    /* ~~~~~~~~~~~ TAP BUTTON ~~~~~~~~~~ */
+    // -- MARK: Tap Button
     
     
     func tapButtonPressed() {
@@ -250,7 +250,7 @@ class TimelineScene: SKScene {
     }
     
     
-    /* ~~~~~~~~~~~ TIMELINE ~~~~~~~~~~ */
+    // -- MARK: Timeline
     
     
     func spawnSentance() {

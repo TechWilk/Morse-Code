@@ -83,7 +83,7 @@ class PlaybackScene: SKScene {
     }
     
     
-    /* ~~~~~~~~~~~ SETUP ~~~~~~~~~~ */
+    // -- MARK: Setup
     
     
     func setupLabels() {
@@ -114,7 +114,7 @@ class PlaybackScene: SKScene {
 
     
     
-    /* ~~~~~~~~~~~ TIMELINE ~~~~~~~~~~ */
+    // -- MARK: Timeline
     
     
     func playSentance() {
