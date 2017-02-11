@@ -26,8 +26,8 @@ class TimelineScene: SKScene {
     let unitDisplaySize = 50.0
     
     
-    var ditSprite = SKSpriteNode()
-    var dahSprite = SKSpriteNode()
+    var ditSprite = MorseCharacter()
+    var dahSprite = MorseCharacter()
     
     let dit = MorseCode.dit
     let dah = MorseCode.dah
@@ -42,6 +42,7 @@ class TimelineScene: SKScene {
     let markerTapZone = SKSpriteNode()
     
     var sentance = "morse code"
+    var sentanceSprites = [MorseCharacter]()
     var showMorseCode = true
     var showLetters = true
     
@@ -176,7 +177,7 @@ class TimelineScene: SKScene {
     // -- MARK: Morse Sprites
     
     
-    func morseCodeSprite(unitsWide: Int) -> SKSpriteNode {
+    func morseCodeSprite(unitsWide: Int) -> MorseCharacter {
         let nodeWidth = CGFloat(unitDisplaySize * Double(unitsWide))
         
         var alpha = 1
@@ -187,7 +188,7 @@ class TimelineScene: SKScene {
         let color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: CGFloat(alpha))
         
         let texture = morseCodeSpriteTexture(unitsWide: unitsWide, color: color)
-        let sprite = SKSpriteNode(texture: texture)
+        let sprite = MorseCharacter(texture: texture)
         sprite.size = CGSize(width: nodeWidth, height: CGFloat(unitDisplaySize))
         sprite.position = CGPoint(x: (frame.maxX + nodeWidth/2), y: frame.midY + (frame.maxY - frame.midY) / 2)
         sprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -258,10 +259,10 @@ class TimelineScene: SKScene {
         
         var actions: [SKAction] = []
         let actionSpawnDit = SKAction.run {
-            self.spawnDit()
+            self.sentanceSprites.append(self.spawnDit())
         }
         let actionSpawnDah = SKAction.run {
-            self.spawnDah()
+            self.sentanceSprites.append(self.spawnDah())
         }
         let actionEndOfSentance = SKAction.run {
             self.timelineSceneDelegate!.sentanceComplete(completed: true)
@@ -298,22 +299,43 @@ class TimelineScene: SKScene {
         let dahAnimationDuration = CGFloat(1/morseUnitPerSecond) * distanceInUnits
         actions.append(SKAction.wait(forDuration: TimeInterval (dahAnimationDuration)))
         actions.append(SKAction.wait(forDuration: 1)) // pause before finishing
+        
+        actions.append(SKAction.run {
+            var correct = 0
+            var incorrect = 0
+            for node in self.sentanceSprites
+            {
+                if node.enteredCorrectly
+                {
+                    correct += 1
+                }
+                else
+                {
+                    incorrect += 1
+                }
+            }
+            self.timeLabel.text = "Correct: \(correct) Incorrect: \(incorrect)"
+        })
+        actions.append(SKAction.wait(forDuration: 1)) // pause before finishing
+        
         actions.append(actionEndOfSentance)
         
         run(SKAction.sequence(actions))
     }
     
     
-    func spawnDit() {
-        let sprite = ditSprite.copy() as! SKSpriteNode
+    func spawnDit() -> MorseCharacter {
+        let sprite = ditSprite.copy() as! MorseCharacter
         timeline.addChild(sprite)
         setupTimelineAnimation(sprite: sprite)
+        return sprite
     }
     
-    func spawnDah() {
-        let sprite = dahSprite.copy() as! SKSpriteNode
+    func spawnDah() -> MorseCharacter {
+        let sprite = dahSprite.copy() as! MorseCharacter
         timeline.addChild(sprite)
         setupTimelineAnimation(sprite: sprite)
+        return sprite
     }
     
     func spawnCharacter(char: Character) {
@@ -353,14 +375,14 @@ class TimelineScene: SKScene {
         for node in timeline.children {
             if markerTapZone.intersects(node) {
                 let color = UIColor.green
-                let node = node as? SKSpriteNode
+                let node = node as? MorseCharacter
                 if node?.name == morse {
                     var unitsWide = 1
                     if node?.name == dah {
                         unitsWide = 3
                     }
                     node?.texture = morseCodeSpriteTexture(unitsWide: unitsWide, color: color)
-                    timeLabel.text = "Success"
+                    node?.enteredCorrectly = true
                     return true
                 }
             }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE3660821E29717D006E3F72 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3660811E29717D006E3F72 /* IntroViewController.swift */; };
+		CE854AF01E4F2E0E0009241D /* MorseCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE854AEF1E4F2E0E0009241D /* MorseCharacter.swift */; };
 		CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */; };
 		CEB0F77E1E23BDBD00EAECBD /* TimelineScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */; };
 		CEB0F7801E23BDBD00EAECBD /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77F1E23BDBD00EAECBD /* Actions.sks */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		CE3660811E29717D006E3F72 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		CE854AEF1E4F2E0E0009241D /* MorseCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseCharacter.swift; sourceTree = "<group>"; };
 		CEB0F7781E23BDBD00EAECBD /* morse code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "morse code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TimelineScene.sks; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				CEB0F77F1E23BDBD00EAECBD /* Actions.sks */,
 				CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */,
 				CEB0F7811E23BDBD00EAECBD /* TimelineScene.swift */,
+				CE854AEF1E4F2E0E0009241D /* MorseCharacter.swift */,
 				CEB0F7831E23BDBD00EAECBD /* TimelineViewController.swift */,
 				CEDF4F8C1E3F573C002B1F84 /* MorseCode.swift */,
 				CEB0F7851E23BDBD00EAECBD /* Main.storyboard */,
@@ -242,6 +245,7 @@
 			files = (
 				CEB0F7821E23BDBD00EAECBD /* TimelineScene.swift in Sources */,
 				CEB0F7841E23BDBD00EAECBD /* TimelineViewController.swift in Sources */,
+				CE854AF01E4F2E0E0009241D /* MorseCharacter.swift in Sources */,
 				CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */,
 				CEFDF2BA1E3FD6F9008C8060 /* PlaybackScene.swift in Sources */,
 				CEFDF2B81E3FCF8C008C8060 /* PlaybackViewController.swift in Sources */,
