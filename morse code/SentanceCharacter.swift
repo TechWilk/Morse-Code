@@ -36,15 +36,14 @@ class SentanceCharacter {
     
     func enteredCorrectly() -> Bool? {
         if morseSprites.count > 0 {
-            var success = true
             
             for sprite in morseSprites {
                 if !sprite.enteredCorrectly {
-                    success = false
+                    return false
                 }
             }
             
-            return success
+            return true
         }
         
         return nil
