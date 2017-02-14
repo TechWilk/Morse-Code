@@ -42,7 +42,7 @@ class TimelineScene: SKScene {
     let markerTapZone = SKSpriteNode()
     
     var sentance = "morse code"
-    var sentanceSprites = [MorseCharacter]()
+    var sentanceCharacters = [SentanceCharacter]()
     var showMorseCode = true
     var showLetters = true
     
@@ -254,16 +254,35 @@ class TimelineScene: SKScene {
     // -- MARK: Timeline
     
     
+    func constructSentance() {
+        for letter in sentance.characters {
+            
+            if let sentanceChar = SentanceCharacter(letter: letter)
+            {
+                // add sprites
+                
+                for i in sentanceChar.morseRepresentation {
+                    if i == dit {
+                        sentanceChar.morseSprites.append(ditSprite.copy() as! MorseCharacter)
+                    }
+                    else if i == dah {
+                        sentanceChar.morseSprites.append(dahSprite.copy() as! MorseCharacter)
+                    }
+                }
+                
+                // add to sentance array
+                
+                sentanceCharacters.append(sentanceChar)
+            }
+        }
+    }
+    
+    
     func spawnSentance() {
-        //let sentance = "andy"
+        
+        constructSentance()
         
         var actions: [SKAction] = []
-        let actionSpawnDit = SKAction.run {
-            self.sentanceSprites.append(self.spawnDit())
-        }
-        let actionSpawnDah = SKAction.run {
-            self.sentanceSprites.append(self.spawnDah())
-        }
         let actionEndOfSentance = SKAction.run {
             self.timelineSceneDelegate!.sentanceComplete(completed: true)
         }
@@ -271,24 +290,38 @@ class TimelineScene: SKScene {
         
         actions.append(SKAction.wait(forDuration: 1))
         
-        for letter in sentance.characters {
-            let letterLower = String(letter).lowercased()
-            if (chars[letterLower] != nil) {
-                if showLetters {
-                    actions.append(SKAction.run {
-                        self.spawnCharacter(char: letter)
-                    })
-                }
-                for i in chars[letterLower]! {
-                    if i == dit {
-                        actions.append(contentsOf: [actionSpawnDit, waitOneMorseUnit]) // append wait same length as shape to prevent drawing over it
+        for sentanceChar in sentanceCharacters {
+            if showLetters {
+                actions.append(SKAction.run {
+                    self.spawnCharacter(char: sentanceChar.character)
+                })
+            }
+            if sentanceChar.morseSprites.count == 0 { // treat as a space
+                actions.append(contentsOf: [waitOneMorseUnit, waitOneMorseUnit, waitOneMorseUnit, waitOneMorseUnit]) // spaces to separate word
+            }
+            else {
+                for sprite in sentanceChar.morseSprites {
+                    if sprite.name == dit {
+                        actions.append(contentsOf:
+                            [
+                                SKAction.run {
+                                    self.spawnMorseCharacter(sprite: sprite)
+                                },
+                                waitOneMorseUnit
+                            ]) // append wait same length as shape to prevent drawing over it
                     }
-                    else if i == dah {
-                        actions.append(contentsOf: [actionSpawnDah, waitOneMorseUnit, waitOneMorseUnit, waitOneMorseUnit]) // append wait same length as shape to prevent drawing over it
+                    else if sprite.name == dah {
+                        actions.append(contentsOf:
+                            [
+                                SKAction.run {
+                                    self.spawnMorseCharacter(sprite: sprite)
+                                },
+                                waitOneMorseUnit,
+                                waitOneMorseUnit,
+                                waitOneMorseUnit
+                            ]) // append wait same length as shape to prevent drawing over it
                     }
-                    else {
-                        actions.append(contentsOf: [waitOneMorseUnit, waitOneMorseUnit, waitOneMorseUnit, waitOneMorseUnit]) // spaces to separate word
-                    }
+                    
                     actions.append(waitOneMorseUnit)
                 }
             }
@@ -303,20 +336,23 @@ class TimelineScene: SKScene {
         actions.append(SKAction.run {
             var correct = 0
             var incorrect = 0
-            for node in self.sentanceSprites
+            for letters in self.sentanceCharacters
             {
-                if node.enteredCorrectly
+                for node in letters.morseSprites
                 {
-                    correct += 1
-                }
-                else
-                {
-                    incorrect += 1
+                    if node.enteredCorrectly
+                    {
+                        correct += 1
+                    }
+                    else
+                    {
+                        incorrect += 1
+                    }
                 }
             }
             self.timeLabel.text = "Correct: \(correct) Incorrect: \(incorrect)"
         })
-        actions.append(SKAction.wait(forDuration: 1)) // pause before finishing
+        actions.append(SKAction.wait(forDuration: 2)) // pause before finishing
         
         actions.append(actionEndOfSentance)
         
@@ -324,18 +360,9 @@ class TimelineScene: SKScene {
     }
     
     
-    func spawnDit() -> MorseCharacter {
-        let sprite = ditSprite.copy() as! MorseCharacter
+    func spawnMorseCharacter(sprite: MorseCharacter) {
         timeline.addChild(sprite)
         setupTimelineAnimation(sprite: sprite)
-        return sprite
-    }
-    
-    func spawnDah() -> MorseCharacter {
-        let sprite = dahSprite.copy() as! MorseCharacter
-        timeline.addChild(sprite)
-        setupTimelineAnimation(sprite: sprite)
-        return sprite
     }
     
     func spawnCharacter(char: Character) {
