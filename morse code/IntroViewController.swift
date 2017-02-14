@@ -44,6 +44,10 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        sentanceTextBox.resignFirstResponder()
+    }
+    
     
     
     override func viewDidLoad() {
@@ -57,14 +61,13 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         wordsPerMinSegmentControl.selectedSegmentIndex = defaults.integer(forKey: Defaults.wordsPerMinIndex)
         playbackBeforeTimelineSwitch.isOn = defaults.bool(forKey: Defaults.playbackBeforeTimeline)
         
-        sentanceTextBox.becomeFirstResponder()
         sentanceTextBox.delegate = self
     }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        goButton(sentanceTextBox)
+        goButton(textField)
         return true
     }
     
