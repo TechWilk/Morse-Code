@@ -36,6 +36,9 @@ class TimelineScene: SKScene {
     
     let timeline = SKNode()
     let tapButton = SKSpriteNode()
+    let tapButtonInner = SKSpriteNode()
+    var tapButtonTappedTexture: SKTexture? = nil
+    var tapButtonTexture: SKTexture? = nil
     var wordsPerMinLabel = SKLabelNode()
     var backLabel = SKLabelNode()
     let markerTapZone = SKSpriteNode()
@@ -74,14 +77,13 @@ class TimelineScene: SKScene {
         )
         
         
-        self.backgroundColor = SKColor(red: 60/255, green: 173/255, blue: 237/255, alpha: 1)
-        
-        setupButtons()
-        setupLabels()
-        setupTimeline()
-        
+        self.backgroundColor = AppUIDefaults.backgroundBlue
         
         spawnSentance()
+        
+        setupLabels()
+        setupTimeline()
+        setupButtons()
     }
     
     
@@ -120,17 +122,56 @@ class TimelineScene: SKScene {
     
     
     func setupButtons() {
+        
+        // button outer
+        var buttonRadius = 150.0
+        let circle = SKShapeNode(rect: CGRect(x: 0,
+                                              y: 0,
+                                              width: buttonRadius,
+                                              height: buttonRadius),
+                                 cornerRadius: CGFloat(buttonRadius/2))
+        
+        circle.fillColor = AppUIDefaults.buttonOuterBlue
+        circle.lineWidth = 0
+        
+        tapButton.texture = view?.texture(from: circle)
         tapButton.size = CGSize(width: 150, height: 150)
         tapButton.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY - (frame.midY - frame.minY) / 2/3)
-        tapButton.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
+        //tapButton.color = AppUIDefaults.buttonOuterBlue
         tapButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addChild(tapButton)
         
-        let tapButtonInner = SKSpriteNode(color: UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1), size: tapButton.frame.insetBy(dx: 10, dy: 10).size)
+        
+        // button inner
+        buttonRadius -= 10
+        let innerCircle = SKShapeNode(rect: CGRect(x: 0,
+                                              y: 0,
+                                              width: buttonRadius,
+                                              height: buttonRadius),
+                                 cornerRadius: CGFloat(buttonRadius/2))
+        
+        innerCircle.fillColor = AppUIDefaults.buttonInnerBlue
+        innerCircle.lineWidth = 0
+        tapButtonTexture = view?.texture(from: innerCircle) // save to swap in when button released
+        
+        tapButtonInner.size = tapButton.frame.insetBy(dx: 10, dy: 10).size
+        tapButtonInner.texture = tapButtonTexture
         tapButtonInner.position = CGPoint(x: 0, y: 0 )
         tapButtonInner.name = "tapButtonInner"
         tapButtonInner.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         tapButton.addChild(tapButtonInner)
+        
+        
+        // button inner alternate texture
+        let innerCircleHighlighted = SKShapeNode(rect: CGRect(x: 0,
+                                                   y: 0,
+                                                   width: buttonRadius,
+                                                   height: buttonRadius),
+                                      cornerRadius: CGFloat(buttonRadius/2))
+        
+        innerCircleHighlighted.fillColor = AppUIDefaults.buttonInnerHighlightedBlue
+        innerCircleHighlighted.lineWidth = 0
+        tapButtonTappedTexture = view?.texture(from: innerCircleHighlighted) // save to swap in when button tapped
     }
     
     func setupLabels() {
@@ -227,7 +268,7 @@ class TimelineScene: SKScene {
         tonePlayer.play()
         tapStartTime = NSDate()
         touchDown = true
-        (tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 160/255, green: 225/255, blue: 255/255, alpha: 1)
+        tapButtonInner.texture = tapButtonTappedTexture
     }
     
     func tapButtonReleased() {
@@ -235,7 +276,7 @@ class TimelineScene: SKScene {
         Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) {_ in 
             self.tonePlayer.stop()
             self.tonePlayer.prepareToPlay()
-            (self.tapButton.childNode(withName: "tapButtonInner") as! SKSpriteNode).color = UIColor(red: 194/255, green: 234/255, blue: 255/255, alpha: 1)
+            self.tapButtonInner.texture = self.tapButtonTexture
         }
         
         if tapDuration <= (1/morseUnitPerSecond)*1.2 {

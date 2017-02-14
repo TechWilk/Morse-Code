@@ -60,7 +60,7 @@ class PlaybackScene: SKScene {
            })])
         )
         
-        self.backgroundColor = SKColor(red: 60/255, green: 173/255, blue: 237/255, alpha: 1)
+        self.backgroundColor = AppUIDefaults.backgroundBlue
         
         setupLabels()
         
