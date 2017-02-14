@@ -336,9 +336,20 @@ class TimelineScene: SKScene {
         actions.append(SKAction.run {
             var correct = 0
             var incorrect = 0
-            for letters in self.sentanceCharacters
+            for sentanceChar in self.sentanceCharacters
             {
-                for node in letters.morseSprites
+                if let success = sentanceChar.enteredCorrectly() {
+                    if success
+                    {
+                        correct += 1
+                    }
+                    else
+                    {
+                        incorrect += 1
+                    }
+                }
+                
+                /*for node in sentanceChar.morseSprites
                 {
                     if node.enteredCorrectly
                     {
@@ -348,7 +359,7 @@ class TimelineScene: SKScene {
                     {
                         incorrect += 1
                     }
-                }
+                }*/
             }
             self.timeLabel.text = "Correct: \(correct) Incorrect: \(incorrect)"
         })
