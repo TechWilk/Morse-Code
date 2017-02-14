@@ -92,22 +92,29 @@ class PlaybackScene: SKScene {
         wordsPerMinLabel.text = "\(wordsPerMin) wpm"
         wordsPerMinLabel.position = CGPoint(x: frame.maxX - edgePadding, y: frame.minY + edgePadding)
         wordsPerMinLabel.horizontalAlignmentMode = .right
+        wordsPerMinLabel.fontName = AppUIDefaults.lightFont
+        wordsPerMinLabel.fontSize = AppUIDefaults.normalTextSize
         addChild(wordsPerMinLabel)
         
         textLabel.position = CGPoint(x: frame.midX, y: frame.midY)
         textLabel.horizontalAlignmentMode = .center
         textLabel.text = ""
-        textLabel.fontSize = 50.0
+        textLabel.fontName = AppUIDefaults.lightFont
+        textLabel.fontSize = AppUIDefaults.hugeTextSize
         addChild(textLabel)
         
         backLabel.text = "< Back"
         backLabel.position = CGPoint(x: frame.minX + edgePadding, y: frame.maxY - backLabel.frame.height - edgePadding )
         backLabel.horizontalAlignmentMode = .left
+        backLabel.fontName = AppUIDefaults.lightFont
+        backLabel.fontSize = AppUIDefaults.normalTextSize
         addChild(backLabel)
         
         skipLabel.text = "Skip >"
         skipLabel.position = CGPoint(x: frame.midX, y: frame.midY - (frame.midY - frame.minY)/2 - backLabel.frame.height/2 )
         skipLabel.horizontalAlignmentMode = .center
+        skipLabel.fontName = AppUIDefaults.lightFont
+        skipLabel.fontSize = AppUIDefaults.normalTextSize
         addChild(skipLabel)
 
     }

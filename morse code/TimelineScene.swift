@@ -37,9 +37,9 @@ class TimelineScene: SKScene {
     let timeline = SKNode()
     let tapButton = SKSpriteNode()
     var wordsPerMinLabel = SKLabelNode()
-    var timeLabel = SKLabelNode()
     var backLabel = SKLabelNode()
     let markerTapZone = SKSpriteNode()
+    var continueLabel = SKLabelNode()
     
     var sentance = "morse code"
     var sentanceCharacters = [SentanceCharacter]()
@@ -110,6 +110,9 @@ class TimelineScene: SKScene {
         else if backLabel.contains((touches.first?.location(in: self))!) {
             timelineSceneDelegate?.sentanceComplete(completed: false)
         }
+        else if continueLabel.contains((touches.first?.location(in: self))!) {
+            continueFromScore()
+        }
     }
     
     
@@ -136,16 +139,15 @@ class TimelineScene: SKScene {
         wordsPerMinLabel.text = "\(wordsPerMin) wpm"
         wordsPerMinLabel.position = CGPoint(x: frame.maxX - edgePadding, y: frame.minY + edgePadding)
         wordsPerMinLabel.horizontalAlignmentMode = .right
+        wordsPerMinLabel.fontName = AppUIDefaults.lightFont
+        wordsPerMinLabel.fontSize = AppUIDefaults.normalTextSize
         addChild(wordsPerMinLabel)
-        
-        timeLabel.text = "time"
-        timeLabel.position = CGPoint(x: frame.maxX - edgePadding, y: (frame.minY + 10 + wordsPerMinLabel.fontSize + edgePadding) )
-        timeLabel.horizontalAlignmentMode = .right
-        addChild(timeLabel)
         
         backLabel.text = "< Back"
         backLabel.position = CGPoint(x: frame.minX + edgePadding, y: frame.maxY - backLabel.frame.height - edgePadding )
         backLabel.horizontalAlignmentMode = .left
+        backLabel.fontName = AppUIDefaults.lightFont
+        backLabel.fontSize = AppUIDefaults.normalTextSize
         addChild(backLabel)
         
     }
@@ -237,15 +239,13 @@ class TimelineScene: SKScene {
         }
         
         if tapDuration <= (1/morseUnitPerSecond)*1.2 {
-            timeLabel.text = "Dit"
             _ = userEnteredCorrectly(morse: dit)
         }
         else if tapDuration <= (1/morseUnitPerSecond*3)*1.2 {
-            timeLabel.text = "Dah"
             _ = userEnteredCorrectly(morse: dah)
         }
         else {
-            timeLabel.text = "N/A"
+            // ignore input
         }
         touchDown = false
     }
@@ -284,7 +284,7 @@ class TimelineScene: SKScene {
         
         var actions: [SKAction] = []
         let actionEndOfSentance = SKAction.run {
-            self.timelineSceneDelegate!.sentanceComplete(completed: true)
+            self.timelineFinished()
         }
         let waitOneMorseUnit = SKAction.wait(forDuration: 1/morseUnitPerSecond)
         
@@ -333,38 +333,6 @@ class TimelineScene: SKScene {
         actions.append(SKAction.wait(forDuration: TimeInterval (dahAnimationDuration)))
         actions.append(SKAction.wait(forDuration: 1)) // pause before finishing
         
-        actions.append(SKAction.run {
-            var correct = 0
-            var incorrect = 0
-            for sentanceChar in self.sentanceCharacters
-            {
-                if let success = sentanceChar.enteredCorrectly() {
-                    if success
-                    {
-                        correct += 1
-                    }
-                    else
-                    {
-                        incorrect += 1
-                    }
-                }
-                
-                /*for node in sentanceChar.morseSprites
-                {
-                    if node.enteredCorrectly
-                    {
-                        correct += 1
-                    }
-                    else
-                    {
-                        incorrect += 1
-                    }
-                }*/
-            }
-            self.timeLabel.text = "Correct: \(correct) Incorrect: \(incorrect)"
-        })
-        actions.append(SKAction.wait(forDuration: 2)) // pause before finishing
-        
         actions.append(actionEndOfSentance)
         
         run(SKAction.sequence(actions))
@@ -383,6 +351,8 @@ class TimelineScene: SKScene {
                                        y: frame.midY + (frame.maxY - frame.midY) / 2 + CGFloat(unitDisplaySize/2) + 15 + letterLabel.frame.height/2)
         letterLabel.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
         letterLabel.horizontalAlignmentMode = .left
+        letterLabel.fontName = AppUIDefaults.lightFont
+        letterLabel.fontSize = AppUIDefaults.normalTextSize
         addChild(letterLabel)
         
         setupTimelineAnimation(label: letterLabel)
@@ -427,5 +397,99 @@ class TimelineScene: SKScene {
         }
         
         return false
+    }
+    
+    
+    func hideTimeline() {
+        removeAllChildren()
+    }
+    
+    
+    // -- MARK: Finish
+    
+    func timelineFinished() {
+        hideTimeline()
+        displayScore()
+    }
+    
+    func displayScore() {
+        var sentanceCharsCorrect = 0
+        var sentanceCharsIncorrect = 0
+        var morseCharsCorrect = 0
+        var morseCharsIncorrect = 0
+        
+        for sentanceChar in sentanceCharacters
+        {
+            if let success = sentanceChar.enteredCorrectly() {
+                if success
+                {
+                    sentanceCharsCorrect += 1
+                }
+                else
+                {
+                    sentanceCharsIncorrect += 1
+                }
+            }
+            
+            for node in sentanceChar.morseSprites {
+                 if node.enteredCorrectly
+                 {
+                     morseCharsCorrect += 1
+                 }
+                 else
+                 {
+                     morseCharsIncorrect += 1
+                 }
+            }
+        }
+        
+        let sentanceCharsPercentage = Int(round(Double(sentanceCharsCorrect) / Double(sentanceCharsCorrect + sentanceCharsIncorrect) * 100.0))
+        let morseCharsPercentage = Int(round(Double(morseCharsCorrect) / Double(morseCharsCorrect + morseCharsIncorrect) * 100.0))
+        
+        let spacing: CGFloat = 15.0
+        
+        let label = SKLabelNode()
+        label.horizontalAlignmentMode = .center
+        label.fontName = AppUIDefaults.lightFont
+        label.fontSize = AppUIDefaults.normalTextSize
+        
+        let sentanceCharsCorrectLabel = label.copy() as! SKLabelNode
+        sentanceCharsCorrectLabel.position = CGPoint(x: frame.midX,
+                                                     y: frame.midY + label.fontSize*2 + spacing)
+        sentanceCharsCorrectLabel.text = "Correct letters: \(sentanceCharsCorrect)"
+        addChild(sentanceCharsCorrectLabel)
+        
+        let sentanceCharsIncorrectLabel = label.copy() as! SKLabelNode
+        sentanceCharsIncorrectLabel.position = CGPoint(x: frame.midX,
+                                                       y: sentanceCharsCorrectLabel.position.y - label.fontSize - spacing)
+        sentanceCharsIncorrectLabel.text = "Incorrect letters: \(sentanceCharsIncorrect)"
+        addChild(sentanceCharsIncorrectLabel)
+        
+        let sentanceCharsScoreLabel = label.copy() as! SKLabelNode
+        sentanceCharsScoreLabel.position = CGPoint(x: frame.midX,
+                                                   y: sentanceCharsIncorrectLabel.position.y - label.fontSize - spacing)
+        sentanceCharsScoreLabel.text = "Letters: \(sentanceCharsPercentage)%"
+        addChild(sentanceCharsScoreLabel)
+        
+        let morseCharsScoreLabel = label.copy() as! SKLabelNode
+        morseCharsScoreLabel.position = CGPoint(x: frame.midX,
+                                                   y: sentanceCharsScoreLabel.position.y - label.fontSize - spacing)
+        morseCharsScoreLabel.text = "Morse units: \(morseCharsPercentage)%"
+        addChild(morseCharsScoreLabel)
+        
+        
+        continueLabel = label.copy() as! SKLabelNode
+        continueLabel.fontName = AppUIDefaults.boldFont
+        continueLabel.fontSize = AppUIDefaults.largeTextSize
+        continueLabel.position = CGPoint(x: frame.midX,
+                                         y: morseCharsScoreLabel.position.y - label.fontSize - spacing*4)
+        continueLabel.text = "Continue"
+        addChild(continueLabel)
+        
+    }
+    
+    
+    func continueFromScore() {
+        timelineSceneDelegate!.sentanceComplete(completed: true)
     }
 }
