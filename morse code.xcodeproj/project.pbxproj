@@ -11,6 +11,7 @@
 		CE854AF01E4F2E0E0009241D /* MorseCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE854AEF1E4F2E0E0009241D /* MorseCharacter.swift */; };
 		CE854AF21E4F3B0F0009241D /* SentanceCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE854AF11E4F3B0F0009241D /* SentanceCharacter.swift */; };
 		CE854AF61E535EA80009241D /* AppUIDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE854AF51E535EA80009241D /* AppUIDefaults.swift */; };
+		CE854AF81E546FF90009241D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE854AF71E546FF90009241D /* LaunchScreen.storyboard */; };
 		CEB0F77C1E23BDBD00EAECBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */; };
 		CEB0F77E1E23BDBD00EAECBD /* TimelineScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */; };
 		CEB0F7801E23BDBD00EAECBD /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB0F77F1E23BDBD00EAECBD /* Actions.sks */; };
@@ -42,6 +43,7 @@
 		CE854AEF1E4F2E0E0009241D /* MorseCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseCharacter.swift; sourceTree = "<group>"; };
 		CE854AF11E4F3B0F0009241D /* SentanceCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentanceCharacter.swift; sourceTree = "<group>"; };
 		CE854AF51E535EA80009241D /* AppUIDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUIDefaults.swift; sourceTree = "<group>"; };
+		CE854AF71E546FF90009241D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "morse code/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		CEB0F7781E23BDBD00EAECBD /* morse code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "morse code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB0F77B1E23BDBD00EAECBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB0F77D1E23BDBD00EAECBD /* TimelineScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TimelineScene.sks; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		CEB0F76F1E23BDBC00EAECBD = {
 			isa = PBXGroup;
 			children = (
+				CE854AF71E546FF90009241D /* LaunchScreen.storyboard */,
 				CEB0F77A1E23BDBD00EAECBD /* morse code */,
 				CEB0F7951E23BDBD00EAECBD /* morse codeTests */,
 				CEB0F7791E23BDBD00EAECBD /* Products */,
@@ -230,6 +233,7 @@
 				CEB0F77E1E23BDBD00EAECBD /* TimelineScene.sks in Resources */,
 				CEB0F7891E23BDBD00EAECBD /* Assets.xcassets in Resources */,
 				CEFDF2BC1E40D1CD008C8060 /* PlaybackScene.sks in Resources */,
+				CE854AF81E546FF90009241D /* LaunchScreen.storyboard in Resources */,
 				CEB0F7A21E24D80E00EAECBD /* 1kHz_tone.wav in Resources */,
 				CEB0F7801E23BDBD00EAECBD /* Actions.sks in Resources */,
 			);
