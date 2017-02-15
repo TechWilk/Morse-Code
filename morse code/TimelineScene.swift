@@ -372,7 +372,7 @@ class TimelineScene: SKScene {
         let distanceInUnits = (frame.maxX - frame.minX + CGFloat(unitDisplaySize*3)) / CGFloat(unitDisplaySize)
         let dahAnimationDuration = CGFloat(1/morseUnitPerSecond) * distanceInUnits
         actions.append(SKAction.wait(forDuration: TimeInterval (dahAnimationDuration)))
-        actions.append(SKAction.wait(forDuration: 1)) // pause before finishing
+        actions.append(SKAction.wait(forDuration: 0.5)) // pause before finishing
         
         actions.append(actionEndOfSentance)
         

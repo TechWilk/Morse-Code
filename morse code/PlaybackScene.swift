@@ -168,7 +168,7 @@ class PlaybackScene: SKScene {
             actions.append(waitOneMorseUnit)
             actions.append(waitOneMorseUnit)
         }
-        actions.append(SKAction.wait(forDuration: 1))
+        actions.append(SKAction.wait(forDuration: 0.5))
         actions.append(actionEndOfSentance)
         
         run(SKAction.sequence(actions))
