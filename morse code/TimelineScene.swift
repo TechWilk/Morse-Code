@@ -196,7 +196,7 @@ class TimelineScene: SKScene {
     func setupTimeline() {
         
         let marker = SKSpriteNode()
-        marker.size = CGSize(width: 2, height: unitDisplaySize*2)
+        marker.size = CGSize(width: 6, height: unitDisplaySize*2)
         marker.position = CGPoint(x: (frame.midX - frame.width/4), y: frame.midY + (frame.maxY - frame.midY) / 2)
         marker.color = UIColor(red: 115/255, green: 220/255, blue: 255/255, alpha: 1)
         marker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
