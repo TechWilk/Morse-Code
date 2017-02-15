@@ -85,8 +85,6 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
             wordsPerMin = 15.0
         case 3:
             wordsPerMin = 20.0
-        case 4:
-            wordsPerMin = 25.0
         default:
             wordsPerMin = 5.0
         }
